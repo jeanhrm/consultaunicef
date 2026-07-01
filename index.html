@@ -126,11 +126,13 @@ body{font-family:'Nunito',sans-serif;background:#C9E8F5;min-height:100vh;display
 
 <!-- BIENVENIDA -->
 <div class="page active" id="p-welcome">
-  <div class="con-apoyo">con el apoyo de</div>
   <div class="logo-bar">
     <img src="images/logo_dre_huancavelica.jpg" class="logo-img" alt="DRE Huancavelica">
     <div class="logo-divider"></div>
-    <img src="images/logo_unicef.png" class="logo-img" alt="UNICEF Perú">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+      <span style="font-size:10px;color:#1CABE2;font-weight:700;">con el apoyo de</span>
+      <img src="images/logo_unicef.png" class="logo-img" alt="UNICEF Perú">
+    </div>
   </div>
 
   <div class="welcome-card">
@@ -228,16 +230,24 @@ body{font-family:'Nunito',sans-serif;background:#C9E8F5;min-height:100vh;display
 <!-- FINAL -->
 <div class="page" id="p-finish" style="padding-top:1rem;">
   <div class="finish-card">
-    <div style="text-align:right;margin-bottom:4px;"><span class="con-apoyo">con el apoyo de</span></div>
     <div class="logo-bar" style="margin-bottom:1rem;">
-      <div style="height:60px;display:flex;align-items:center;justify-content:center;min-width:110px;background:#f0f8fd;border-radius:8px;padding:4px 8px;">
-        <span style="font-size:10px;color:#1CABE2;font-weight:700;text-align:center;">📁 logo_dre_huancavelica.png</span>
-      </div>
+      <img src="images/logo_dre_huancavelica.jpg" class="logo-img" alt="DRE Huancavelica">
       <div class="logo-divider"></div>
-      <div style="height:60px;display:flex;align-items:center;justify-content:center;min-width:100px;background:#1CABE2;border-radius:8px;padding:4px 8px;">
-        <span style="font-size:10px;color:#fff;font-weight:700;text-align:center;">📁 logo_unicef.png</span>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+        <span style="font-size:10px;color:#1CABE2;font-weight:700;">con el apoyo de</span>
+        <img src="images/logo_unicef.png" class="logo-img" alt="UNICEF Perú">
       </div>
     </div>
+    <div class="finish-trophy">🏆</div>
+    <div class="finish-title">¡Gracias por participar!</div>
+    <div class="finish-msg">Tu voz es importante para mejorar la educación en Huancavelica. Tus respuestas han sido registradas de forma anónima.</div>
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-num">5</div><div class="stat-lbl">Zonas completadas</div></div>
+      <div class="stat-box"><div class="stat-num">38</div><div class="stat-lbl">Preguntas respondidas</div></div>
+    </div>
+    <div class="finish-close">Puedes cerrar esta página.</div>
+  </div>
+</div>
     <div class="finish-trophy">🏆</div>
     <div class="finish-title">¡Gracias por participar!</div>
     <div class="finish-msg">Tu voz es importante para mejorar la educación en Huancavelica. Tus respuestas han sido registradas de forma anónima.</div>
