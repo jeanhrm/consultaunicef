@@ -1,236 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consulta Participativa 2026 — Huancavelica</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Nunito',sans-serif;background:#C9E8F5;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:1.5rem 1rem;}
+    .app{width:100%;max-width:600px;}
+    .page{display:none;flex-direction:column;}
+    .page.active{display:flex;}
 
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Nunito',sans-serif;background:#C9E8F5;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:1.5rem 1rem;}
-.app{width:100%;max-width:600px;}
-.page{display:none;flex-direction:column;}
-.page.active{display:flex;}
+    .logo-bar{display:flex;align-items:center;justify-content:center;gap:1.5rem;margin-bottom:1.25rem;}
+    .logo-divider{width:1.5px;height:72px;background:#8ECDE8;}
+    .logo-img{height:72px;width:auto;object-fit:contain;}
 
-.con-apoyo{font-size:11px;color:#1CABE2;font-weight:700;text-align:right;margin-bottom:4px;}
-.logo-bar{display:flex;align-items:center;justify-content:center;gap:1.5rem;margin-bottom:1.25rem;}
-.logo-divider{width:1.5px;height:72px;background:#8ECDE8;}
-.logo-img{height:72px;width:auto;object-fit:contain;}
+    .welcome-card{background:#fff;border-radius:20px;border:0.5px solid #B5D9F0;padding:1.25rem;margin-bottom:1rem;box-shadow:0 2px 12px #1CABE215;display:flex;gap:12px;align-items:flex-start;}
+    .welcome-text{flex:1;min-width:0;}
+    .welcome-title{font-size:19px;font-weight:800;color:#1CABE2;margin-bottom:2px;}
+    .welcome-year{font-size:12px;color:#6CB8D9;margin-bottom:1rem;font-weight:600;}
+    .info-row{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px;}
+    .info-dot{width:9px;height:9px;border-radius:50%;background:#1CABE2;margin-top:5px;flex-shrink:0;}
+    .info-text{font-size:13px;color:#333;line-height:1.5;}
 
-/* Tarjeta con imagen lateral */
-.welcome-card{background:#fff;border-radius:20px;border:0.5px solid #B5D9F0;padding:1.25rem;margin-bottom:1rem;box-shadow:0 2px 12px #1CABE215;display:flex;gap:12px;align-items:flex-start;}
-.welcome-text{flex:1;min-width:0;}
-.welcome-title{font-size:19px;font-weight:800;color:#1CABE2;margin-bottom:2px;}
-.welcome-year{font-size:12px;color:#6CB8D9;margin-bottom:1rem;font-weight:600;}
-.info-row{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px;}
-.info-dot{width:9px;height:9px;border-radius:50%;background:#1CABE2;margin-top:5px;flex-shrink:0;}
-.info-text{font-size:13px;color:#333;line-height:1.5;}
+    .btn-primary{display:block;width:100%;padding:14px;background:#1CABE2;color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:800;cursor:pointer;text-align:center;font-family:'Nunito',sans-serif;}
+    .btn-primary:hover{background:#0E8AB0;}
 
-/* Columna imagen lateral */
-.welcome-img-col{flex-shrink:0;width:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-.img-slot{width:110px;height:180px;border-radius:14px;overflow:hidden;border:2px dashed #B5D9F0;background:#F0F8FD;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;}
-.img-slot img{width:100%;height:100%;object-fit:cover;border-radius:12px;display:none;}
-.img-slot-label{font-size:10px;color:#1CABE2;font-weight:700;text-align:center;padding:0 6px;line-height:1.4;}
-.img-slot-icon{font-size:28px;}
-.img-hint{font-size:9px;color:#6CB8D9;text-align:center;margin-top:6px;line-height:1.4;}
+    .top-bar{background:#1CABE2;padding:14px 16px;display:flex;align-items:center;gap:10px;border-radius:16px 16px 0 0;}
+    .top-bar-title{color:#fff;font-size:15px;font-weight:800;flex:1;}
+    .top-bar-back{background:none;border:none;color:#fff;font-size:22px;cursor:pointer;padding:0;line-height:1;}
+    .content{flex:1;padding:1.25rem;background:#fff;border-radius:0 0 16px 16px;}
+    .card{background:#F0F8FD;border-radius:12px;border:0.5px solid #B5D9F0;padding:1.25rem;margin-bottom:12px;}
+    .label-text{font-size:13px;color:#555;margin-bottom:6px;font-weight:600;}
+    .input-field{width:100%;padding:12px;border:2px solid #B5D9F0;border-radius:10px;font-size:20px;color:#1CABE2;background:#fff;text-align:center;letter-spacing:4px;font-family:'Nunito',sans-serif;font-weight:700;}
+    .input-field:focus{outline:none;border-color:#1CABE2;box-shadow:0 0 0 3px #1CABE222;}
+    .ie-found{background:#E8F4FD;border-radius:8px;padding:10px 12px;margin-top:10px;border:0.5px solid #B5D9F0;}
+    .ie-name{font-size:15px;font-weight:700;color:#1CABE2;}
+    .ie-detail{font-size:12px;color:#6CB8D9;margin-top:2px;}
+    .btn-enabled{display:block;width:100%;padding:13px;background:#1CABE2;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:800;cursor:pointer;text-align:center;font-family:'Nunito',sans-serif;margin-top:4px;}
+    .btn-enabled:hover{background:#0E8AB0;}
+    .btn-disabled{display:block;width:100%;padding:13px;background:#B5D9F0;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:800;cursor:not-allowed;text-align:center;font-family:'Nunito',sans-serif;margin-top:4px;}
 
-.btn-primary{display:block;width:100%;padding:14px;background:#1CABE2;color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:800;cursor:pointer;text-align:center;font-family:'Nunito',sans-serif;}
-.btn-primary:hover{background:#0E8AB0;}
+    .map-header{background:#1CABE2;padding:14px 16px;border-radius:16px 16px 0 0;}
+    .map-title{color:#fff;font-size:16px;font-weight:800;}
+    .map-ie{color:#B5D9F0;font-size:12px;margin-top:2px;}
+    .prog-wrap{background:#0E8AB088;border-radius:4px;height:6px;margin-top:10px;}
+    .prog-fill{height:6px;border-radius:4px;background:#fff;transition:width 0.4s;}
+    .prog-label{color:#B5D9F0;font-size:11px;margin-top:4px;}
+    .zone-list{padding:1rem;display:flex;flex-direction:column;gap:8px;background:#fff;border-radius:0 0 16px 16px;}
+    .zone-row{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;border:1.5px solid #B5D9F0;cursor:pointer;background:#F8FCFE;transition:all 0.15s;}
+    .zone-row.active{border-color:#1CABE2;background:#E8F4FD;}
+    .zone-row.done{background:#E8F4FD;border-color:#1CABE2;}
+    .zone-row.locked{opacity:0.5;cursor:not-allowed;}
+    .zone-icon-wrap{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+    .zone-name{font-size:13px;font-weight:700;color:#1a1a1a;}
+    .zone-sub{font-size:11px;color:#6CB8D9;margin-top:2px;}
 
-/* top bar */
-.top-bar{background:#1CABE2;padding:14px 16px;display:flex;align-items:center;gap:10px;border-radius:16px 16px 0 0;}
-.top-bar-title{color:#fff;font-size:15px;font-weight:800;flex:1;}
-.top-bar-back{background:none;border:none;color:#fff;font-size:22px;cursor:pointer;padding:0;line-height:1;}
-.content{flex:1;padding:1.25rem;background:#fff;border-radius:0 0 16px 16px;}
-.card{background:#F0F8FD;border-radius:12px;border:0.5px solid #B5D9F0;padding:1.25rem;margin-bottom:12px;}
-.label-text{font-size:13px;color:#555;margin-bottom:6px;font-weight:600;}
-.input-field{width:100%;padding:12px;border:2px solid #B5D9F0;border-radius:10px;font-size:20px;color:#1CABE2;background:#fff;text-align:center;letter-spacing:4px;font-family:'Nunito',sans-serif;font-weight:700;}
-.input-field:focus{outline:none;border-color:#1CABE2;box-shadow:0 0 0 3px #1CABE222;}
-.ie-found{background:#E8F4FD;border-radius:8px;padding:10px 12px;margin-top:10px;border:0.5px solid #B5D9F0;}
-.ie-name{font-size:15px;font-weight:700;color:#1CABE2;}
-.ie-detail{font-size:12px;color:#6CB8D9;margin-top:2px;}
-.btn-enabled{display:block;width:100%;padding:13px;background:#1CABE2;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:800;cursor:pointer;text-align:center;font-family:'Nunito',sans-serif;margin-top:4px;}
-.btn-enabled:hover{background:#0E8AB0;}
-.btn-disabled{display:block;width:100%;padding:13px;background:#B5D9F0;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:800;cursor:not-allowed;text-align:center;font-family:'Nunito',sans-serif;margin-top:4px;}
+    .q-header{background:#1CABE2;padding:12px 14px;border-radius:16px 16px 0 0;}
+    .q-zone-name{color:#fff;font-size:14px;font-weight:800;}
+    .q-zone-sub{color:#B5D9F0;font-size:11px;margin-top:2px;}
+    .q-prog-wrap{background:#0E8AB088;border-radius:3px;height:4px;margin-top:8px;}
+    .q-prog-fill{height:4px;border-radius:3px;background:#fff;transition:width 0.4s;}
+    .zone-tabs{display:flex;gap:5px;flex-wrap:wrap;padding:8px 12px;background:#F0F8FD;border-bottom:0.5px solid #E8F4FD;}
+    .ztab{padding:4px 10px;border-radius:8px;border:1px solid #B5D9F0;background:#fff;font-size:11px;font-weight:700;color:#6CB8D9;cursor:pointer;font-family:'Nunito',sans-serif;}
+    .ztab.active{background:#1CABE2;color:#fff;border-color:#1CABE2;}
+    .ztab.done{background:#E8F4FD;color:#1CABE2;border-color:#1CABE2;}
+    .table-wrap{background:#fff;}
+    .col-head-row{display:grid;grid-template-columns:1fr 76px 76px 76px 76px;border-bottom:2px solid #E8F4FD;}
+    .ch-blank{padding:8px 10px;font-size:11px;color:#6CB8D9;font-weight:700;display:flex;align-items:flex-end;}
+    .ch-cell{padding:6px 2px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;border-left:1px solid #E8F4FD;}
+    .ch-emoji{font-size:18px;line-height:1;}
+    .ch-lbl{font-size:9px;font-weight:700;margin-top:2px;line-height:1.2;}
+    .ch-cell.c0{background:#FFEBEB;}.ch-cell.c0 .ch-lbl{color:#A32D2D;}
+    .ch-cell.c1{background:#FFF3E0;}.ch-cell.c1 .ch-lbl{color:#854F0B;}
+    .ch-cell.c2{background:#FFFDE7;}.ch-cell.c2 .ch-lbl{color:#5D4037;}
+    .ch-cell.c3{background:#E8F5E9;}.ch-cell.c3 .ch-lbl{color:#1B5E20;}
+    .q-row{display:grid;grid-template-columns:1fr 76px 76px 76px 76px;border-bottom:1px solid #E8F4FD;transition:background 0.2s;}
+    .q-row:last-child{border-bottom:none;}
+    .q-text-cell{padding:9px 10px;display:flex;flex-direction:column;justify-content:center;}
+    .q-num{font-size:10px;color:#6CB8D9;margin-bottom:2px;font-weight:700;}
+    .q-text{font-size:12px;color:#222;line-height:1.45;}
+    .opt-cell{border-left:1px solid #E8F4FD;display:flex;align-items:center;justify-content:center;cursor:pointer;min-height:52px;transition:background 0.15s;}
+    .opt-cell:hover{filter:brightness(0.92);}
+    .opt-cell.c0{background:#fff5f5;}.opt-cell.c1{background:#fff9f0;}
+    .opt-cell.c2{background:#fffff5;}.opt-cell.c3{background:#f5fff8;}
+    .opt-cell.picked.c0{background:#FFCDD2;}.opt-cell.picked.c1{background:#FFE0B2;}
+    .opt-cell.picked.c2{background:#FFF9C4;}.opt-cell.picked.c3{background:#C8E6C9;}
+    .radio-outer{width:20px;height:20px;border-radius:50%;border:2px solid #B5D9F0;background:#fff;}
+    .opt-cell:hover .radio-outer{border-color:#1CABE2;}
+    .emoji-result{font-size:26px;display:none;}
+    .emoji-result.show{display:block;animation:pop 0.35s cubic-bezier(0.34,1.56,0.64,1) forwards;}
+    @keyframes pop{0%{transform:scale(0) rotate(-20deg);opacity:0;}65%{transform:scale(1.3) rotate(6deg);opacity:1;}100%{transform:scale(1) rotate(0deg);opacity:1;}}
+    .q-row.a0{background:#fff0f0;}.q-row.a1{background:#fff8ee;}
+    .q-row.a2{background:#fffff0;}.q-row.a3{background:#f0fff5;}
+    .q-footer{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-top:1.5px solid #E8F4FD;background:#F0F8FD;border-radius:0 0 16px 16px;}
+    .ans-lbl{font-size:12px;color:#6CB8D9;font-weight:700;}
+    .ans-lbl span{color:#1CABE2;}
+    .btn-zona{padding:9px 18px;background:#1CABE2;color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;}
+    .btn-zona:disabled{background:#B5D9F0;cursor:not-allowed;}
+    .btn-zona:not(:disabled):hover{background:#0E8AB0;}
 
-.map-header{background:#1CABE2;padding:14px 16px;border-radius:16px 16px 0 0;}
-.map-title{color:#fff;font-size:16px;font-weight:800;}
-.map-ie{color:#B5D9F0;font-size:12px;margin-top:2px;}
-.prog-wrap{background:#0E8AB088;border-radius:4px;height:6px;margin-top:10px;}
-.prog-fill{height:6px;border-radius:4px;background:#fff;transition:width 0.4s;}
-.prog-label{color:#B5D9F0;font-size:11px;margin-top:4px;}
-.zone-list{padding:1rem;display:flex;flex-direction:column;gap:8px;background:#fff;border-radius:0 0 16px 16px;}
-.zone-row{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;border:1.5px solid #B5D9F0;cursor:pointer;background:#F8FCFE;transition:all 0.15s;}
-.zone-row.active{border-color:#1CABE2;background:#E8F4FD;}
-.zone-row.done{background:#E8F4FD;border-color:#1CABE2;}
-.zone-row.locked{opacity:0.5;cursor:not-allowed;}
-.zone-icon-wrap{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
-.zone-name{font-size:13px;font-weight:700;color:#1a1a1a;}
-.zone-sub{font-size:11px;color:#6CB8D9;margin-top:2px;}
+    .zdone-wrap{background:#fff;border-radius:16px;padding:2rem 1.25rem;text-align:center;display:flex;flex-direction:column;align-items:center;}
+    .zdone-icon{font-size:54px;margin-bottom:12px;}
+    .zdone-title{font-size:18px;font-weight:800;color:#1CABE2;margin-bottom:6px;}
+    .zdone-msg{font-size:13px;color:#555;line-height:1.6;margin-bottom:1.25rem;}
+    .alert-box{background:#E8F4FD;border-left:3px solid #1CABE2;border-radius:0 8px 8px 0;padding:10px 14px;font-size:12px;color:#555;margin-bottom:1rem;width:100%;line-height:1.5;text-align:left;}
 
-.q-header{background:#1CABE2;padding:12px 14px;border-radius:16px 16px 0 0;}
-.q-zone-name{color:#fff;font-size:14px;font-weight:800;}
-.q-zone-sub{color:#B5D9F0;font-size:11px;margin-top:2px;}
-.q-prog-wrap{background:#0E8AB088;border-radius:3px;height:4px;margin-top:8px;}
-.q-prog-fill{height:4px;border-radius:3px;background:#fff;transition:width 0.4s;}
-.zone-tabs{display:flex;gap:5px;flex-wrap:wrap;padding:8px 12px;background:#F0F8FD;border-bottom:0.5px solid #E8F4FD;}
-.ztab{padding:4px 10px;border-radius:8px;border:1px solid #B5D9F0;background:#fff;font-size:11px;font-weight:700;color:#6CB8D9;cursor:pointer;font-family:'Nunito',sans-serif;}
-.ztab.active{background:#1CABE2;color:#fff;border-color:#1CABE2;}
-.ztab.done{background:#E8F4FD;color:#1CABE2;border-color:#1CABE2;}
-.table-wrap{background:#fff;}
-.col-head-row{display:grid;grid-template-columns:1fr 76px 76px 76px 76px;border-bottom:2px solid #E8F4FD;}
-.ch-blank{padding:8px 10px;font-size:11px;color:#6CB8D9;font-weight:700;display:flex;align-items:flex-end;}
-.ch-cell{padding:6px 2px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;border-left:1px solid #E8F4FD;}
-.ch-emoji{font-size:18px;line-height:1;}
-.ch-lbl{font-size:9px;font-weight:700;margin-top:2px;line-height:1.2;}
-.ch-cell.c0{background:#FFEBEB;}.ch-cell.c0 .ch-lbl{color:#A32D2D;}
-.ch-cell.c1{background:#FFF3E0;}.ch-cell.c1 .ch-lbl{color:#854F0B;}
-.ch-cell.c2{background:#FFFDE7;}.ch-cell.c2 .ch-lbl{color:#5D4037;}
-.ch-cell.c3{background:#E8F5E9;}.ch-cell.c3 .ch-lbl{color:#1B5E20;}
-.q-row{display:grid;grid-template-columns:1fr 76px 76px 76px 76px;border-bottom:1px solid #E8F4FD;transition:background 0.2s;}
-.q-row:last-child{border-bottom:none;}
-.q-text-cell{padding:9px 10px;display:flex;flex-direction:column;justify-content:center;}
-.q-num{font-size:10px;color:#6CB8D9;margin-bottom:2px;font-weight:700;}
-.q-text{font-size:12px;color:#222;line-height:1.45;}
-.opt-cell{border-left:1px solid #E8F4FD;display:flex;align-items:center;justify-content:center;cursor:pointer;min-height:52px;transition:background 0.15s;}
-.opt-cell:hover{filter:brightness(0.92);}
-.opt-cell.c0{background:#fff5f5;}.opt-cell.c1{background:#fff9f0;}
-.opt-cell.c2{background:#fffff5;}.opt-cell.c3{background:#f5fff8;}
-.opt-cell.picked.c0{background:#FFCDD2;}.opt-cell.picked.c1{background:#FFE0B2;}
-.opt-cell.picked.c2{background:#FFF9C4;}.opt-cell.picked.c3{background:#C8E6C9;}
-.radio-outer{width:20px;height:20px;border-radius:50%;border:2px solid #B5D9F0;background:#fff;}
-.opt-cell:hover .radio-outer{border-color:#1CABE2;}
-.emoji-result{font-size:26px;display:none;}
-.emoji-result.show{display:block;animation:pop 0.35s cubic-bezier(0.34,1.56,0.64,1) forwards;}
-@keyframes pop{0%{transform:scale(0) rotate(-20deg);opacity:0;}65%{transform:scale(1.3) rotate(6deg);opacity:1;}100%{transform:scale(1) rotate(0deg);opacity:1;}}
-.q-row.a0{background:#fff0f0;}.q-row.a1{background:#fff8ee;}
-.q-row.a2{background:#fffff0;}.q-row.a3{background:#f0fff5;}
-.q-footer{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-top:1.5px solid #E8F4FD;background:#F0F8FD;border-radius:0 0 16px 16px;}
-.ans-lbl{font-size:12px;color:#6CB8D9;font-weight:700;}
-.ans-lbl span{color:#1CABE2;}
-.btn-zona{padding:9px 18px;background:#1CABE2;color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;}
-.btn-zona:disabled{background:#B5D9F0;cursor:not-allowed;}
-.btn-zona:not(:disabled):hover{background:#0E8AB0;}
-.zdone-wrap{background:#fff;border-radius:16px;padding:2rem 1.25rem;text-align:center;display:flex;flex-direction:column;align-items:center;}
-.zdone-icon{font-size:54px;margin-bottom:12px;}
-.zdone-title{font-size:18px;font-weight:800;color:#1CABE2;margin-bottom:6px;}
-.zdone-msg{font-size:13px;color:#555;line-height:1.6;margin-bottom:1.25rem;}
-.alert-box{background:#E8F4FD;border-left:3px solid #1CABE2;border-radius:0 8px 8px 0;padding:10px 14px;font-size:12px;color:#555;margin-bottom:1rem;width:100%;line-height:1.5;text-align:left;}
-.finish-card{background:#fff;border-radius:20px;border:0.5px solid #B5D9F0;padding:1.5rem 1.25rem;text-align:center;}
-.finish-trophy{font-size:54px;margin-bottom:0.75rem;}
-.finish-title{font-size:22px;font-weight:800;color:#1CABE2;margin-bottom:8px;}
-.finish-msg{font-size:13px;color:#555;line-height:1.7;margin-bottom:1.25rem;}
-.stat-row{display:flex;gap:10px;margin-bottom:1rem;}
-.stat-box{flex:1;background:#E8F4FD;border-radius:10px;padding:12px;}
-.stat-num{font-size:28px;font-weight:800;color:#1CABE2;}
-.stat-lbl{font-size:11px;color:#6CB8D9;margin-top:2px;font-weight:600;}
-.finish-close{font-size:12px;color:#6CB8D9;margin-top:0.75rem;}
-</style>
-
+    .finish-card{background:#fff;border-radius:20px;border:0.5px solid #B5D9F0;padding:1.5rem 1.25rem;text-align:center;}
+    .finish-trophy{font-size:54px;margin-bottom:0.75rem;}
+    .finish-title{font-size:22px;font-weight:800;color:#1CABE2;margin-bottom:8px;}
+    .finish-msg{font-size:13px;color:#555;line-height:1.7;margin-bottom:1.25rem;}
+    .stat-row{display:flex;gap:10px;margin-bottom:1rem;}
+    .stat-box{flex:1;background:#E8F4FD;border-radius:10px;padding:12px;}
+    .stat-num{font-size:28px;font-weight:800;color:#1CABE2;}
+    .stat-lbl{font-size:11px;color:#6CB8D9;margin-top:2px;font-weight:600;}
+    .finish-close{font-size:12px;color:#6CB8D9;margin-top:0.75rem;}
+  </style>
+</head>
+<body>
 <div class="app">
 
-<!-- BIENVENIDA -->
-<div class="page active" id="p-welcome">
-  <div class="logo-bar">
-    <img src="images/logo_dre_huancavelica.jpg" class="logo-img" alt="DRE Huancavelica">
-    <div class="logo-divider"></div>
-    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
-      <span style="font-size:10px;color:#1CABE2;font-weight:700;">con el apoyo de</span>
-      <img src="images/logo_unicef.png" class="logo-img" alt="UNICEF Perú">
-    </div>
-  </div>
-
-  <div class="welcome-card">
-    <!-- Texto izquierda -->
-    <div class="welcome-text">
-      <div class="welcome-title">Consulta participativa 2026</div>
-      <div class="welcome-year">Región Huancavelica</div>
-      <div class="info-row"><div class="info-dot"></div><div class="info-text">Tu opinión es <strong>anónima</strong> — nadie sabrá lo que respondiste.</div></div>
-      <div class="info-row"><div class="info-dot"></div><div class="info-text">Responde con <strong>honestidad</strong>. No hay respuestas incorrectas.</div></div>
-      <div class="info-row"><div class="info-dot"></div><div class="info-text">Avanzas <strong>zona por zona</strong>. Una vez que pasas, no puedes regresar.</div></div>
-      <div class="info-row"><div class="info-dot"></div><div class="info-text">Tiempo estimado: <strong>5 a 8 minutos</strong>.</div></div>
-    </div>
-    <!-- Imagen derecha -->
-    <div class="welcome-img-col">
-      <img src="images/imagen_bienvenida.webp" 
-     style="width:140px;height:150px;object-fit:cover;border-radius:14px;"
-     alt="Bienvenida">
-    </div>
-  </div>
-
-  <button class="btn-primary" onclick="go('p-codigo')">Comenzar →</button>
-</div>
-
-<!-- CÓDIGO -->
-<div class="page" id="p-codigo">
-  <div class="top-bar">
-    <button class="top-bar-back" onclick="go('p-welcome')">←</button>
-    <div class="top-bar-title">Código de tu colegio</div>
-  </div>
-  <div class="content">
-    <div class="card">
-      <div class="label-text">Código modular (7 u 8 dígitos)</div>
-      <input class="input-field" id="cod" type="text" inputmode="numeric" maxlength="8" placeholder="_ _ _ _ _ _ _ _" oninput="checkCod()">
-      <div id="ie-preview" style="display:none" class="ie-found">
-        <div class="ie-name" id="ie-name"></div>
-        <div class="ie-detail" id="ie-detail"></div>
-      </div>
-    </div>
-    <button class="btn-disabled" id="btn-iniciar" disabled onclick="iniciar()">Validar e iniciar →</button>
-    <p style="font-size:11px;color:#6CB8D9;text-align:center;margin-top:10px;font-weight:600;">No se registra tu nombre ni datos personales</p>
-  </div>
-</div>
-
-<!-- MAPA -->
-<div class="page" id="p-map">
-  <div class="map-header">
-    <div class="map-title">🗺️ Tu mapa de participación</div>
-    <div class="map-ie" id="map-ie"></div>
-    <div class="prog-wrap"><div class="prog-fill" id="map-prog" style="width:0%"></div></div>
-    <div class="prog-label" id="map-lbl"></div>
-  </div>
-  <div class="zone-list" id="zone-list"></div>
-</div>
-
-<!-- ZONA TABLA -->
-<div class="page" id="p-zona">
-  <div class="q-header">
-    <div style="display:flex;align-items:center;gap:8px;">
-      <button onclick="goMap()" style="background:none;border:none;color:#fff;font-size:20px;cursor:pointer;padding:0;line-height:1;">←</button>
-      <div>
-        <div class="q-zone-name" id="q-zone-name"></div>
-        <div class="q-zone-sub" id="q-zone-sub"></div>
-      </div>
-    </div>
-    <div class="q-prog-wrap"><div class="q-prog-fill" id="q-prog" style="width:0%"></div></div>
-  </div>
-  <div class="zone-tabs" id="zone-tabs"></div>
-  <div class="table-wrap">
-    <div class="col-head-row">
-      <div class="ch-blank">Pregunta</div>
-      <div class="ch-cell c0"><div class="ch-emoji">😣</div><div class="ch-lbl">Nunca</div></div>
-      <div class="ch-cell c1"><div class="ch-emoji">😕</div><div class="ch-lbl">Casi nunca</div></div>
-      <div class="ch-cell c2"><div class="ch-emoji">🙂</div><div class="ch-lbl">A veces</div></div>
-      <div class="ch-cell c3"><div class="ch-emoji">😄</div><div class="ch-lbl">Casi siempre</div></div>
-    </div>
-    <div id="q-body"></div>
-  </div>
-  <div class="q-footer">
-    <div class="ans-lbl">Respondidas: <span id="ans-count">0</span>/<span id="ans-total">0</span></div>
-    <button class="btn-zona" id="btn-zona" disabled onclick="nextZone()">Siguiente zona →</button>
-  </div>
-</div>
-
-<!-- ZONA DONE -->
-<div class="page" id="p-zdone" style="padding-top:1.5rem;">
-  <div class="zdone-wrap">
-    <div class="zdone-icon" id="zd-icon"></div>
-    <div class="zdone-title" id="zd-title"></div>
-    <div class="zdone-msg" id="zd-msg"></div>
-    <div class="alert-box" id="zd-alert" style="display:none;">⚠️ Una vez avances no podrás regresar a esta zona.</div>
-    <button class="btn-primary" id="btn-zdone" onclick="nextZone2()" style="max-width:360px;width:100%;"></button>
-  </div>
-</div>
-
-<!-- FINAL -->
-<div class="page" id="p-finish" style="padding-top:1rem;">
-  <div class="finish-card">
-    <div class="logo-bar" style="margin-bottom:1rem;">
+  <!-- BIENVENIDA -->
+  <div class="page active" id="p-welcome">
+    <div class="logo-bar">
       <img src="images/logo_dre_huancavelica.jpg" class="logo-img" alt="DRE Huancavelica">
       <div class="logo-divider"></div>
       <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
@@ -238,30 +131,118 @@ body{font-family:'Nunito',sans-serif;background:#C9E8F5;min-height:100vh;display
         <img src="images/logo_unicef.png" class="logo-img" alt="UNICEF Perú">
       </div>
     </div>
-    <div class="finish-trophy">🏆</div>
-    <div class="finish-title">¡Gracias por participar!</div>
-    <div class="finish-msg">Tu voz es importante para mejorar la educación en Huancavelica. Tus respuestas han sido registradas de forma anónima.</div>
-    <div class="stat-row">
-      <div class="stat-box"><div class="stat-num">5</div><div class="stat-lbl">Zonas completadas</div></div>
-      <div class="stat-box"><div class="stat-num">38</div><div class="stat-lbl">Preguntas respondidas</div></div>
+    <div class="welcome-card">
+      <div class="welcome-text">
+        <div class="welcome-title">Consulta participativa 2026</div>
+        <div class="welcome-year">Región Huancavelica</div>
+        <div class="info-row"><div class="info-dot"></div><div class="info-text">Tu opinión es <strong>anónima</strong> — nadie sabrá lo que respondiste.</div></div>
+        <div class="info-row"><div class="info-dot"></div><div class="info-text">Responde con <strong>honestidad</strong>. No hay respuestas incorrectas.</div></div>
+        <div class="info-row"><div class="info-dot"></div><div class="info-text">Avanzas <strong>zona por zona</strong>. Una vez que pasas, no puedes regresar.</div></div>
+        <div class="info-row"><div class="info-dot"></div><div class="info-text">Tiempo estimado: <strong>5 a 8 minutos</strong>.</div></div>
+      </div>
+      <div style="flex-shrink:0;width:110px;display:flex;align-items:center;justify-content:center;">
+        <img src="images/imagen_bienvenida.webp" style="width:110px;height:150px;object-fit:cover;border-radius:14px;" alt="Bienvenida">
+      </div>
     </div>
-    <div class="finish-close">Puedes cerrar esta página.</div>
+    <button class="btn-primary" onclick="go('p-codigo')">Comenzar →</button>
+  </div>
+
+  <!-- CÓDIGO -->
+  <div class="page" id="p-codigo">
+    <div class="top-bar">
+      <button class="top-bar-back" onclick="go('p-welcome')">←</button>
+      <div class="top-bar-title">Código de tu colegio</div>
+    </div>
+    <div class="content">
+      <div class="card">
+        <div class="label-text">Código modular (7 u 8 dígitos)</div>
+        <input class="input-field" id="cod" type="text" inputmode="numeric" maxlength="8" placeholder="_ _ _ _ _ _ _ _" oninput="checkCod()">
+        <div id="ie-preview" style="display:none" class="ie-found">
+          <div class="ie-name" id="ie-name"></div>
+          <div class="ie-detail" id="ie-detail"></div>
+        </div>
+      </div>
+      <button class="btn-disabled" id="btn-iniciar" disabled onclick="iniciar()">Validar e iniciar →</button>
+      <p style="font-size:11px;color:#6CB8D9;text-align:center;margin-top:10px;font-weight:600;">No se registra tu nombre ni datos personales</p>
+    </div>
+  </div>
+
+  <!-- MAPA -->
+  <div class="page" id="p-map">
+    <div class="map-header">
+      <div class="map-title">🗺️ Tu mapa de participación</div>
+      <div class="map-ie" id="map-ie"></div>
+      <div class="prog-wrap"><div class="prog-fill" id="map-prog" style="width:0%"></div></div>
+      <div class="prog-label" id="map-lbl"></div>
+    </div>
+    <div class="zone-list" id="zone-list"></div>
+  </div>
+
+  <!-- ZONA TABLA -->
+  <div class="page" id="p-zona">
+    <div class="q-header">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <button onclick="goMap()" style="background:none;border:none;color:#fff;font-size:20px;cursor:pointer;padding:0;line-height:1;">←</button>
+        <div>
+          <div class="q-zone-name" id="q-zone-name"></div>
+          <div class="q-zone-sub" id="q-zone-sub"></div>
+        </div>
+      </div>
+      <div class="q-prog-wrap"><div class="q-prog-fill" id="q-prog" style="width:0%"></div></div>
+    </div>
+    <div class="zone-tabs" id="zone-tabs"></div>
+    <div class="table-wrap">
+      <div class="col-head-row">
+        <div class="ch-blank">Pregunta</div>
+        <div class="ch-cell c0"><div class="ch-emoji">😣</div><div class="ch-lbl">Nunca</div></div>
+        <div class="ch-cell c1"><div class="ch-emoji">😕</div><div class="ch-lbl">Casi nunca</div></div>
+        <div class="ch-cell c2"><div class="ch-emoji">🙂</div><div class="ch-lbl">A veces</div></div>
+        <div class="ch-cell c3"><div class="ch-emoji">😄</div><div class="ch-lbl">Casi siempre</div></div>
+      </div>
+      <div id="q-body"></div>
+    </div>
+    <div class="q-footer">
+      <div class="ans-lbl">Respondidas: <span id="ans-count">0</span>/<span id="ans-total">0</span></div>
+      <button class="btn-zona" id="btn-zona" disabled onclick="nextZone()">Siguiente zona →</button>
+    </div>
+  </div>
+
+  <!-- ZONA DONE -->
+  <div class="page" id="p-zdone" style="padding-top:1.5rem;">
+    <div class="zdone-wrap">
+      <div class="zdone-icon" id="zd-icon"></div>
+      <div class="zdone-title" id="zd-title"></div>
+      <div class="zdone-msg" id="zd-msg"></div>
+      <div class="alert-box" id="zd-alert" style="display:none;">⚠️ Una vez avances no podrás regresar a esta zona.</div>
+      <button class="btn-primary" id="btn-zdone" onclick="nextZone2()" style="max-width:360px;width:100%;"></button>
+    </div>
+  </div>
+
+  <!-- FINAL -->
+  <div class="page" id="p-finish" style="padding-top:1rem;">
+    <div class="finish-card">
+      <div class="logo-bar" style="margin-bottom:1rem;">
+        <img src="images/logo_dre_huancavelica.jpg" class="logo-img" alt="DRE Huancavelica">
+        <div class="logo-divider"></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+          <span style="font-size:10px;color:#1CABE2;font-weight:700;">con el apoyo de</span>
+          <img src="images/logo_unicef.png" class="logo-img" alt="UNICEF Perú">
+        </div>
+      </div>
+      <div class="finish-trophy">🏆</div>
+      <div class="finish-title">¡Gracias por participar!</div>
+      <div class="finish-msg">Tu voz es importante para mejorar la educación en Huancavelica. Tus respuestas han sido registradas de forma anónima.</div>
+      <div class="stat-row">
+        <div class="stat-box"><div class="stat-num">5</div><div class="stat-lbl">Zonas completadas</div></div>
+        <div class="stat-box"><div class="stat-num">38</div><div class="stat-lbl">Preguntas respondidas</div></div>
+      </div>
+      <div class="finish-close">Puedes cerrar esta página.</div>
+    </div>
   </div>
 
 </div>
 
 <script>
-function previewImg(input){
-  if(!input.files||!input.files[0])return;
-  const reader=new FileReader();
-  reader.onload=e=>{
-    const slot=input.closest('.img-slot');
-    slot.innerHTML=`<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">`;
-    slot.style.border='none';slot.style.background='none';
-  };
-  reader.readAsDataURL(input.files[0]);
-}
-
 const ZONES=[
   {name:'Zona 1 — Yo y mi bienestar',sub:'Salud, emociones y metas personales',icon:'💚',questions:[
     'Entiendo los cambios que están pasando en mi cuerpo, en mis emociones y en mi sexualidad, ahora que soy adolescente.',
@@ -313,6 +294,7 @@ const ZONES=[
     'En mi casa me castigan de una manera que me hace sentir mal.',
   ]},
 ];
+
 const EMOJIS=['😣','😕','🙂','😄'];
 const COL=['c0','c1','c2','c3'];
 const RANS=['a0','a1','a2','a3'];
@@ -328,38 +310,44 @@ const ZDONE=[
 
 let curZ=0,answers={},doneZones=[],ieData=null;
 
-function go(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');}
-
-// En la función checkCod() reemplaza el bloque local por:
-async function checkCod() {
-    const v = document.getElementById('cod').value.trim();
-    const prev = document.getElementById('ie-preview');
-    const btn = document.getElementById('btn-iniciar');
-    prev.style.display='none'; btn.disabled=true; btn.className='btn-disabled';
-    if (v.length >= 7) {
-        try {
-            const res = await fetch('https://consulta-participativa-production.up.railway.app/api/validar-codigo', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({codigo_modular: v})
-            });
-            const data = await res.json();
-            if (data.success) {
-                ieData = {name: data.nombre, ugel: data.ugel, distrito: data.distrito, provincia: data.provincia, cod: v};
-                document.getElementById('ie-name').textContent = data.nombre;
-                document.getElementById('ie-detail').textContent = data.ugel + ' · ' + data.distrito + ', ' + data.provincia;
-                prev.style.display='block'; btn.disabled=false; btn.className='btn-enabled';
-            } else {
-                document.getElementById('ie-preview').style.display='none';
-                alert('Código modular no encontrado. Verifica con tu docente.');
-            }
-        } catch(e) {
-            alert('Error de conexión. Verifica tu internet.');
-        }
-    }
+function go(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
 
-function iniciar(){answers={};curZ=0;doneZones=[];document.getElementById('map-ie').textContent=ieData?ieData.name:'';renderMap();go('p-map');}
+async function checkCod(){
+  const v=document.getElementById('cod').value.trim();
+  const prev=document.getElementById('ie-preview');
+  const btn=document.getElementById('btn-iniciar');
+  prev.style.display='none'; btn.disabled=true; btn.className='btn-disabled';
+  if(v.length>=7){
+    try{
+      const res=await fetch('https://consulta-participativa-production.up.railway.app/api/validar-codigo',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({codigo_modular:v})
+      });
+      const data=await res.json();
+      if(data.success){
+        ieData={name:data.nombre,ugel:data.ugel,distrito:data.distrito,provincia:data.provincia,cod:v};
+        document.getElementById('ie-name').textContent=data.nombre;
+        document.getElementById('ie-detail').textContent=data.ugel+' · '+data.distrito+', '+data.provincia;
+        prev.style.display='block'; btn.disabled=false; btn.className='btn-enabled';
+      } else {
+        alert('Código modular no encontrado. Verifica con tu docente.');
+      }
+    } catch(e){
+      alert('Error de conexión. Verifica tu internet.');
+    }
+  }
+}
+
+function iniciar(){
+  answers={}; curZ=0; doneZones=[];
+  document.getElementById('map-ie').textContent=ieData?ieData.name:'';
+  renderMap(); go('p-map');
+}
+
 function totalQ(){return ZONES.reduce((a,z)=>a+z.questions.length,0);}
 function answeredQ(){return Object.keys(answers).length;}
 
@@ -367,7 +355,7 @@ function renderMap(){
   const total=totalQ(),done=answeredQ();
   document.getElementById('map-prog').style.width=Math.round(done/total*100)+'%';
   document.getElementById('map-lbl').textContent=done+' de '+total+' preguntas respondidas';
-  const list=document.getElementById('zone-list');list.innerHTML='';
+  const list=document.getElementById('zone-list'); list.innerHTML='';
   ZONES.forEach((z,i)=>{
     const isDone=doneZones.includes(i),isActive=i===curZ&&!isDone,isLocked=i>curZ;
     const row=document.createElement('div');
@@ -375,31 +363,31 @@ function renderMap(){
     row.innerHTML=`<div class="zone-icon-wrap" style="background:${ZBGS[i]};border:2px solid ${isDone||isActive?ZBORDERS[i]:'#ddd'}">${z.icon}</div>
       <div style="flex:1"><div class="zone-name">${z.name}</div>
       <div class="zone-sub">${isDone?'✓ Completada':isActive?z.questions.length+' preguntas — ¡activa!':'🔒 Bloqueada'}</div></div>`;
-    if(!isLocked||isDone)row.onclick=()=>{if(isDone)return;startZone(i);};
+    if(!isLocked||isDone) row.onclick=()=>{if(isDone)return; startZone(i);};
     list.appendChild(row);
   });
 }
 
 function startZone(idx){
-  curZ=idx;const z=ZONES[idx];
+  curZ=idx; const z=ZONES[idx];
   document.getElementById('q-zone-name').textContent=z.name;
   document.getElementById('q-zone-sub').textContent=z.sub;
-  renderTabs();renderBody();updateProg();go('p-zona');
+  renderTabs(); renderBody(); updateProg(); go('p-zona');
 }
 
 function renderTabs(){
-  const el=document.getElementById('zone-tabs');el.innerHTML='';
+  const el=document.getElementById('zone-tabs'); el.innerHTML='';
   ZONES.forEach((z,i)=>{
     const b=document.createElement('button');
     b.className='ztab'+(i===curZ?' active':doneZones.includes(i)?' done':'');
     b.textContent=(doneZones.includes(i)?'✓ ':'')+'Z'+(i+1);
-    b.onclick=()=>{if(i<=curZ){curZ=i;startZone(i);}};
+    b.onclick=()=>{if(i<=curZ){curZ=i; startZone(i);}};
     el.appendChild(b);
   });
 }
 
 function renderBody(){
-  const z=ZONES[curZ],body=document.getElementById('q-body');body.innerHTML='';
+  const z=ZONES[curZ],body=document.getElementById('q-body'); body.innerHTML='';
   z.questions.forEach((q,qi)=>{
     const key=curZ+'-'+qi,picked=answers[key];
     const row=document.createElement('div');
@@ -412,15 +400,15 @@ function renderBody(){
         ${ip?`<span class="emoji-result show">${EMOJIS[oi]}</span>`:`<div class="radio-outer"></div>`}
       </div>`;
     }
-    row.innerHTML=html;body.appendChild(row);
+    row.innerHTML=html; body.appendChild(row);
   });
 }
 
 function pick(qi,oi){
-  const key=curZ+'-'+qi;if(answers[key]===oi)return;
+  const key=curZ+'-'+qi; if(answers[key]===oi)return;
   answers[key]=oi;
   const row=document.getElementById('qrow-'+curZ+'-'+qi);
-  RANS.forEach(c=>row.classList.remove(c));row.classList.add(RANS[oi]);
+  RANS.forEach(c=>row.classList.remove(c)); row.classList.add(RANS[oi]);
   for(let i=0;i<4;i++){
     const cell=document.getElementById('cell-'+curZ+'-'+qi+'-'+i);
     cell.classList.toggle('picked',i===oi);
@@ -430,7 +418,7 @@ function pick(qi,oi){
 }
 
 function updateProg(){
-  const z=ZONES[curZ];let count=0;
+  const z=ZONES[curZ]; let count=0;
   z.questions.forEach((_,qi)=>{if(answers[curZ+'-'+qi]!==undefined)count++;});
   document.getElementById('ans-count').textContent=count;
   document.getElementById('ans-total').textContent=z.questions.length;
@@ -443,7 +431,7 @@ function updateProg(){
 }
 
 function nextZone(){
-  if(!doneZones.includes(curZ))doneZones.push(curZ);
+  if(!doneZones.includes(curZ)) doneZones.push(curZ);
   const m=ZDONE[curZ],isLast=curZ===ZONES.length-1;
   document.getElementById('zd-icon').textContent=m.icon;
   document.getElementById('zd-title').textContent=ZONES[curZ].name+' completada';
@@ -453,31 +441,32 @@ function nextZone(){
   go('p-zdone');
 }
 
-async function nextZone2() {
-    if (curZ === ZONES.length - 1) {
-        const payload = { codigo_modular: ieData.cod };
-        ZONES.forEach((z, zi) => {
-            z.questions.forEach((_, qi) => {
-                payload['z' + (zi+1) + '_p' + (qi+1)] = answers[zi + '-' + qi] ?? null;
-            });
-        });
-        try {
-            const res = await fetch('https://consulta-participativa-production.up.railway.app/api/respuestas', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(payload)
-            });
-            const data = await res.json();
-            if (data.success) { go('p-finish'); }
-            else { alert('Error al guardar. Intenta de nuevo.'); }
-        } catch(e) {
-            alert('Error de conexión. Verifica tu internet.');
-        }
-    } else {
-        curZ++;
-        renderMap();
-        startZone(curZ);
+async function nextZone2(){
+  if(curZ===ZONES.length-1){
+    const payload={codigo_modular:ieData.cod};
+    ZONES.forEach((z,zi)=>{
+      z.questions.forEach((_,qi)=>{
+        payload['z'+(zi+1)+'_p'+(qi+1)]=answers[zi+'-'+qi]??null;
+      });
+    });
+    try{
+      const res=await fetch('https://consulta-participativa-production.up.railway.app/api/respuestas',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(payload)
+      });
+      const data=await res.json();
+      if(data.success){ go('p-finish'); }
+      else{ alert('Error al guardar. Intenta de nuevo.'); }
+    } catch(e){
+      alert('Error de conexión. Verifica tu internet.');
     }
+  } else {
+    curZ++; renderMap(); startZone(curZ);
+  }
 }
-function goMap(){renderMap();go('p-map');}
+
+function goMap(){ renderMap(); go('p-map'); }
 </script>
+</body>
+</html>
