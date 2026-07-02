@@ -8,7 +8,7 @@
   <style>
     *{box-sizing:border-box;margin:0;padding:0;}
     body{font-family:'Nunito',sans-serif;background:#C9E8F5;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:1.5rem 1rem;}
-    .app{width:100%;max-width:600px;}
+    .app{width:100%;max-width:780px;}
     .page{display:none;flex-direction:column;}
     .page.active{display:flex;}
 
@@ -116,6 +116,26 @@
     .stat-num{font-size:28px;font-weight:800;color:#1CABE2;}
     .stat-lbl{font-size:11px;color:#6CB8D9;margin-top:2px;font-weight:600;}
     .finish-close{font-size:12px;color:#6CB8D9;margin-top:0.75rem;}
+    @media (max-width: 600px) {
+    .col-head-row{grid-template-columns:1fr 60px 60px 60px 60px;}
+    .q-row{grid-template-columns:1fr 60px 60px 60px 60px;}
+    .ch-cell{padding:4px 1px;}
+    .ch-emoji{font-size:16px;}
+    .ch-lbl{font-size:8px;}
+    .opt-cell{min-height:46px;}
+    .emoji-result{font-size:22px;}
+    .q-text{font-size:11px;}
+    .welcome-card{flex-direction:column;}
+    .welcome-img-col, div[style*="width:110px"]{width:100% !important;}
+    .welcome-img-col img, div[style*="width:110px"] img{width:100% !important;height:160px !important;object-fit:cover;}
+  }
+  
+  @media (max-width: 400px) {
+    .col-head-row{grid-template-columns:1fr 52px 52px 52px 52px;}
+    .q-row{grid-template-columns:1fr 52px 52px 52px 52px;}
+    .ch-lbl{font-size:7px;}
+    .q-text{font-size:10px;}
+  }
   </style>
 </head>
 <body>
